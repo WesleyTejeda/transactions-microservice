@@ -17,10 +17,6 @@ export const transactionModel = (Sequelize, DataTypes) => {
         overallPrice: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        timeStamp: {
-            type: DataTypes.DATE,
-            default: Date.now()
         }
     })
 
