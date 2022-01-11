@@ -6,17 +6,17 @@ export const transactionModel = (Sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true
         },
+        type: {
+            type: DataTypes.STRING
+        },
         quantity: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.FLOAT
         },
         pricePerUnit: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+            type: DataTypes.FLOAT
         },
-        overallPrice: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+        amount: {
+            type: DataTypes.FLOAT,
         }
     })
 

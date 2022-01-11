@@ -11,7 +11,7 @@ export const walletModel = (Sequelize, DataTypes) => {
             allowNull: false
         },
         currencyAmount: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             allowNull: false
         }
     })
