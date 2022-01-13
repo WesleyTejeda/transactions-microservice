@@ -6,20 +6,20 @@ To run this app locally use command `npm install` and open through http://localh
 <hr />
 
 ### Customer Routes
-`GET`
+GET
 
     (Returns with all associations)
     "/customers" - Returns all customers
     "/customers/:username" - Returns single customer that matches username parameter
 
-`POST`
+POST
 
     "/customers/create" - Creates customer 
     Provide in body object: 
         username: String,
         name: String
 
-`PATCH`
+PATCH
 
     "/customers/patch" - Updates customer info
     Body object:
@@ -28,7 +28,7 @@ To run this app locally use command `npm install` and open through http://localh
         name: String (Optional)
 
 ### Wallet Routes
-`POST`
+POST
 
     "/wallets/create" - Creates wallet for user (only 1)
     Body:
@@ -38,12 +38,12 @@ To run this app locally use command `npm install` and open through http://localh
 
 ### Transaction Routes
 
-`GET`
+GET
 
     "/transactions" - Gets all transactions
     "/transactions/:id" - Returns specific transaction matched with transaction id parameter
 
-`POST`
+POST
 
     "/transactions/create" - Creates a transaction
     Body Object:
@@ -65,7 +65,7 @@ To run this app locally use command `npm install` and open through http://localh
         id: Integer (Transaction id),
         quantity: Integer (Quantity to sell will fail if greater than available or if 0),
         CustomerId: Integer
-## `Models`
+## Models
 ### Customers
 
     username: String, unique,
