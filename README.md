@@ -2,6 +2,18 @@
 
 ## Installation
 To run this app locally use command `npm install` and open through http://localhost:4040
+
+## User Story
+<ul>As A FRONTEND USER
+    <li>WHEN I search for my customer data,</li>
+    <p>THEN I receive my data along with wallet and transactions through JSON</p>
+    <li>WHEN I create a new transaction as a customer,</li>
+    <p>THEN my wallet updates accordingly</p>
+    <li>WHEN I try to purchase an item worth more than my current wallet amount,</li>
+    <p>THEN I receive a message to load more funds to wallet</p>
+     <li>WHEN I sell a mutual fund I purchased,</li>
+     <p>THEN I am able to specify the amount I want to sell and update my quantity available for that fund. Additionally the funds will get added directly to my wallet
+</ul>
 ## Routes
 <hr />
 
