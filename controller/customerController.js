@@ -14,22 +14,37 @@ export const getCustomers = async (req, res) => {
 //GET
 export const getOneCustomer = async(req, res) => {
     let customer = await Customer.findOne({
-        where: {id: req.params.id},
-        include: [db.Wallet, db.Transaction]
+        where: {username: req.params.username},
+        include: [db.Wallet, db.Transaction],
     })
     res.json(customer);
 }
 
 //POST
 export const createCustomer = async (req, res) => {
-    let customer = await Customer.create(req.body);
-    res.json(customer);
+    let exists = await Customer.findOne({
+        where: {
+            username: req.body.username
+        }
+    });
+    if(exists){
+        res.json({error: "Customer already exists."})
+    } else {
+        let customer = await Customer.create(req.body);
+        res.json(customer);
+    }
 }
 
 //PATCH
 export const updateCustomer = async (req, res) => {
-    let customer = await Customer.update(req.body, {
-        where: {CustomerId: req.body.id}
+    await Customer.update(req.body, {
+        where: {id: req.body.id}
+    })
+    let customer = await Customer.findOne({
+        where: {
+            username: req.body.username
+        },
+        include: [db.Wallet, db.Transaction]
     })
     res.json({message: "Customer Updated", customerInfo: customer})
 }

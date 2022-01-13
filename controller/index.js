@@ -1,5 +1,5 @@
 import { createCustomer, getCustomers, getOneCustomer, updateCustomer } from "./customerController.js";
-import { createTransaction, getUserTransaction, getTransactions } from "./transactionController.js";
+import { createTransaction, getUserTransaction, getTransactions, sellFund } from "./transactionController.js";
 import { chargeOneWallet, createWallet, depositOneWallet, getUserWallet, getWallets } from "./walletController.js";
 
 export const customerController = {
@@ -20,5 +20,6 @@ export const walletController = {
 export const transactionController = {
     getTransactions: getTransactions,
     getUserTransaction: getUserTransaction,
-    createTransaction: createTransaction
+    createTransaction: createTransaction,
+    sellFund: sellFund
 }
