@@ -14,6 +14,7 @@ To run this app locally use command `npm install` and open through http://localh
      <li>WHEN I sell a mutual fund I purchased,</li>
      <p>THEN I am able to specify the amount I want to sell and update my quantity available for that fund. Additionally the funds will get added directly to my wallet
 </ul>
+
 ## Routes
 <hr />
 
