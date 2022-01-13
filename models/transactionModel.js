@@ -9,6 +9,9 @@ export const transactionModel = (Sequelize, DataTypes) => {
         type: {
             type: DataTypes.STRING
         },
+        itemDescription: {
+            type: DataTypes.STRING
+        },
         quantity: {
             type: DataTypes.FLOAT
         },
@@ -17,6 +20,13 @@ export const transactionModel = (Sequelize, DataTypes) => {
         },
         amount: {
             type: DataTypes.FLOAT,
+        },
+        sold: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        quantityAvailable: {
+            type: DataTypes.INTEGER
         }
     })
 
