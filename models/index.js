@@ -5,13 +5,28 @@ import { walletModel } from "./walletModel.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-const sequelize = new Sequelize ({
-    database: process.env.DB,
-    username: process.env.USER,
-    password: process.env.PW,
-    dialect: 'postgres',
-    host: process.env.HOST
-});
+
+let sequelize = null;
+
+    if (process && process.env.DATABASE_URL) {
+        sequelize = new Sequelize(process.env.DATABASE_URL, {
+            dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false
+                }
+              }
+            }
+        );
+    } else {
+        sequelize = new Sequelize ({
+            database: process.env.DB,
+            username: process.env.USER,
+            password: process.env.PW,
+            dialect: 'postgres',
+            host: process.env.HOST
+        });
+    }
 
 sequelize.authenticate().then(() => { // successfully connected to DB
     console.log("connected to Postgres DB")
