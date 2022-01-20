@@ -21,15 +21,8 @@ app.use(session({
     cookie: { secure: false }
 }))
 
-const whitelist = ["http://localhost:4200"]
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error("Not allowed by CORS"))
-    }
-  },
+  origin: "*",
   credentials: true,
 }
 app.use(cors(corsOptions))
