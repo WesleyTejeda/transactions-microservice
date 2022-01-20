@@ -17,6 +17,7 @@ export const getOneCustomer = async(req, res) => {
         where: {username: req.params.username},
         include: [db.Wallet, db.Transaction],
     })
+    req.session.username = customer.username;
     res.json(customer);
 }
 
