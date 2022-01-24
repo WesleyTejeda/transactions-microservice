@@ -58,7 +58,7 @@ export const sellFund = async (req, res) => {
         res.json({error: `You have ${transactionToSell.dataValues.quantity} shares available to sell which is less than quantity provided. Please enter correct quantity`});
     }
     let amount = 0;
-    let newQuantity = null;
+    let newQuantity = 0;
     if(transactionToSell.dataValues.quantityAvailable <= 0){
         res.json({error: "You already sold all shares of "+transactionToSell.itemDescription})
     }
