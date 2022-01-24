@@ -62,7 +62,7 @@ export const sellFund = async (req, res) => {
     if(transactionToSell.dataValues.quantityAvailable <= 0){
         res.json({error: "You already sold all shares of "+transactionToSell.itemDescription})
     }
-    if(req.body.quantity < transactionToSell.dataValues.quantity){
+    if(req.body.quantity <= transactionToSell.dataValues.quantity){
         amount = req.body.quantity * transactionToSell.dataValues.pricePerUnit;
         newQuantity = transactionToSell.dataValues.quantityAvailable - req.body.quantity;
     } else {
