@@ -7,7 +7,7 @@ router.get("/customers", (req, res)=> {
     customerController.getCustomers(req, res);
 })
 
-router.get("/customers/:username", (req, res) => {
+router.get("/customers/:id", (req, res) => {
     customerController.getOneCustomer(req, res);
 })
 
@@ -15,9 +15,9 @@ router.post("/customers/create", (req, res) => {
     customerController.createCustomer(req, res);
 })
 
-router.patch("/customers/patch", (req, res) => {
-    customerController.updateCustomer(req, res);
-})
+// router.patch("/customers/patch", (req, res) => {
+//     customerController.updateCustomer(req, res);
+// })
 
 router.post("/wallets/create", (req, res) => {
     walletController.createWallet(req, res);
