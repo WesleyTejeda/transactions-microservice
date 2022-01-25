@@ -19,9 +19,9 @@ router.post("/customers/create", (req, res) => {
 //     customerController.updateCustomer(req, res);
 // })
 
-router.post("/wallets/create", (req, res) => {
-    walletController.createWallet(req, res);
-})
+// router.post("/wallets/create", (req, res) => {
+//     walletController.createWallet(req, res);
+// })
 
 router.get("/transactions", (req, res)=> {
     transactionController.getTransactions(req, res);
