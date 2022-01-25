@@ -32,7 +32,7 @@ export const createCustomer = async (req, res) => {
         res.json({error: "Customer already exists."})
     } else {
         let customer = await Customer.create(req.body);
-        let wallet = await db.Wallet.create({currencyType: "USD", currencyAmount: 0, CustomerId: customer.id})
+        await db.Wallet.create({currencyType: "USD", currencyAmount: 0, CustomerId: customer.id})
         res.json(customer);
     }
 }
