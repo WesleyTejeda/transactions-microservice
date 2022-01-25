@@ -1,18 +1,18 @@
-import { createCustomer, getCustomers, getOneCustomer, updateCustomer } from "./customerController.js";
+import { createCustomer, getCustomers, getOneCustomer } from "./customerController.js";
 import { createTransaction, getUserTransaction, getTransactions, sellFund } from "./transactionController.js";
-import { chargeOneWallet, createWallet, depositOneWallet, getUserWallet, getWallets } from "./walletController.js";
+import { chargeOneWallet, depositOneWallet, getUserWallet, getWallets } from "./walletController.js";
 
 export const customerController = {
     getCustomers: getCustomers,
     getOneCustomer: getOneCustomer,
     createCustomer: createCustomer,
-    updateCustomer: updateCustomer
+    // updateCustomer: updateCustomer
 }
 
 export const walletController = {
     getWallets: getWallets,
     getUserWallet: getUserWallet,
-    createWallet: createWallet,
+    // createWallet: createWallet,
     chargeWallet: chargeOneWallet,
     depositWallet: depositOneWallet
 }

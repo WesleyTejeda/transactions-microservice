@@ -17,26 +17,26 @@ export const getUserWallet = async (req, res) => {
     res.json(wallet);
 }
 
-//POST
-export const createWallet = async (req, res) => {
-    let customerExists = await db.Customer.findOne({
-        where: {
-            id: req.body.CustomerId
-        }
-    });
-    let walletExists = await Wallet.findOne({
-        where: {CustomerId: req.body.CustomerId}
-    }); 
-    if(!customerExists){
-        res.json({error: "Customer does not exist yet. Please create a customer profile."})
-    }
-    if(walletExists){
-        res.json({error: "Wallet already exists for customer."})
-    } else {
-        let wallet = await Wallet.create(req.body);
-        res.json(wallet);
-    }
-}
+// //POST
+// export const createWallet = async (req, res) => {
+//     let customerExists = await db.Customer.findOne({
+//         where: {
+//             id: req.body.CustomerId
+//         }
+//     });
+//     let walletExists = await Wallet.findOne({
+//         where: {CustomerId: req.body.CustomerId}
+//     }); 
+//     if(!customerExists){
+//         res.json({error: "Customer does not exist yet. Please create a customer profile."})
+//     }
+//     if(walletExists){
+//         res.json({error: "Wallet already exists for customer."})
+//     } else {
+//         let wallet = await Wallet.create(req.body);
+//         res.json(wallet);
+//     }
+// }
 
 //PATCH
 //Could be swapped with Swipe API 
