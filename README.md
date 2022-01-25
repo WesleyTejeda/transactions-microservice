@@ -23,31 +23,15 @@ GET
 
     (Returns with all associations)
     "/customers" - Returns all customers
-    "/customers/:username" - Returns single customer that matches username parameter
+    "/customers/:id" - Returns single customer that matches username parameter
 
 POST
 
     "/customers/create" - Creates customer 
     Provide in body object: 
-        username: String,
-        name: String
+        id: integer
 
-PATCH
 
-    "/customers/patch" - Updates customer info
-    Body object:
-        id: Int,
-        username: String (optional),
-        name: String (Optional)
-
-### Wallet Routes
-POST
-
-    "/wallets/create" - Creates wallet for user (only 1)
-    Body:
-        currencyType: String (Abbreviated i.e USD),
-        currencyAmount: Integer (Initial value of wallet),
-        CustomerId: Integer
 
 ### Transaction Routes
 
@@ -81,8 +65,7 @@ POST
 ## Models
 ### Customers
 
-    username: String, unique,
-    name: string
+    id: Integer, unique
 
 ### Wallets
 
