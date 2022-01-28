@@ -7,7 +7,7 @@ const Customer = db.Customer;
 export const getCustomers = async (req, res) => {
     let customers = await Customer.findAll({
         include: [db.Wallet, db.Transaction]
-    });
+    }).then(data => data).catch(err => err);
     res.json(customers);
 }
 
@@ -16,7 +16,7 @@ export const getOneCustomer = async(req, res) => {
     let customer = await Customer.findOne({
         where: {id: req.params.id},
         include: [db.Wallet, db.Transaction],
-    })
+    }).then(data => data).catch(err => err);
     // req.session.id = customer.id;
     res.json(customer);
 }
@@ -27,7 +27,7 @@ export const createCustomer = async (req, res) => {
         where: {
             id: req.body.id
         }
-    });
+    }).then(data => data).catch(err => err);
     if(exists){
         res.json({error: "Customer already exists."})
     } else {
