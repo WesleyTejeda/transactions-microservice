@@ -27,6 +27,9 @@ export const transactionModel = (Sequelize, DataTypes) => {
         },
         quantityAvailable: {
             type: DataTypes.INTEGER
+        },
+        mutualFundId: {
+            type: DataTypes.INTEGER,
         }
     })
 
