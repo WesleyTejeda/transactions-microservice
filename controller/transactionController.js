@@ -4,7 +4,7 @@ const Transaction = db.Transaction;
 
 //GET
 export const getTransactions = async (req, res) => {
-    let transactions = await Transaction.findAll({});
+    let transactions = await Transaction.findAll({}).catch(err => err);
     res.json(transactions);
 }
 
@@ -12,7 +12,7 @@ export const getTransactions = async (req, res) => {
 export const getUserTransaction = async (req, res) => {
     let transaction = await Transaction.findAll({
         where: {CustomerId: req.params.id}
-    })
+    }).catch(err => err);
     res.json(transaction);
 }
 
