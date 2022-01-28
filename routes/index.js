@@ -32,13 +32,13 @@ router.get("/transactions/:id", (req, res) => {
 })
 
 router.post("/transactions/create", (req, res) => {
-    transactionController.createTransaction(req, res).then(transaction => {
+    transactionController.createTransaction(req, res).then( async transaction => {
         if(transaction){
             if(transaction.dataValues.type === "deposit") {
-                let wallet = walletController.depositWallet(req, res, transaction);
+                let wallet = await walletController.depositWallet(req, res, transaction);
                 res.json({transaction: transaction, wallet: wallet});
             } else if(transaction.dataValues.type === "purchase") {
-                let wallet = walletController.chargeWallet(req, res, transaction);
+                let wallet = await walletController.chargeWallet(req, res, transaction);
                 res.json({transaction: transaction, wallet: wallet});
             }
         }
@@ -46,10 +46,10 @@ router.post("/transactions/create", (req, res) => {
 })
 
 router.post("/transactions/sell", (req, res) => {
-    transactionController.sellFund(req, res).then(transaction => {
+    transactionController.sellFund(req, res).then( async transaction => {
         if(transaction){
             console.log(transaction, "sell -----")
-            let wallet = walletController.depositWallet(req, res, transaction);
+            let wallet = await walletController.depositWallet(req, res, transaction);
             res.json({transaction: transaction, wallet: wallet})
         }
     })
