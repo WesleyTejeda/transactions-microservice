@@ -97,6 +97,7 @@ export const sellFund = async (req, res) => {
         itemDescription: `Selling of ${transactionToSell.dataValues.itemDescription}`,
         amount: amount,
         quantity: req.body.quantity,
+        fund_id: transactionToSell.dataValues.fund_id,
         pricePerUnit: transactionToSell.dataValues.pricePerUnit,
         sold: true
     })
