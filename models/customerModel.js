@@ -1,7 +1,7 @@
 export const customerModel = (Sequelize, DataTypes) => {
     const Customer = Sequelize.define('Customers', {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
             primaryKey: true
         }
