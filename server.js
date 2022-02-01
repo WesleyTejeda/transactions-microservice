@@ -22,8 +22,7 @@ app.use(session({
 }))
 
 const corsOptions = {
-  origin: "*",
-  credentials: true,
+  origin: "*"
 }
 app.use(cors(corsOptions))
 
