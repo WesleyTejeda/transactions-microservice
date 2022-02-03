@@ -4,7 +4,7 @@ import express from "express";
 const router = express.Router();
 
 const secretCheck = (req, res, next) => {
-    req.query.key === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv" ? next() : res.json({error: "Access denied to gateway."})
+    req.query.secretKey === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv" ? next() : res.json({error: "Access denied to gateway."})
 }
 
 router.get("/customers", secretCheck, (req, res)=> {
