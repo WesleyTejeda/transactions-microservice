@@ -7,27 +7,27 @@ const secretCheck = (req, res, next) => {
     req.params.key === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv" ? next() : res.json({error: "Access denied to gateway."})
 }
 
-router.get("/customers/:key", secretCheck(req, res, next), (req, res)=> {
+router.get("/customers", secretCheck, (req, res)=> {
     customerController.getCustomers(req, res);
 })
 
-router.get("/customers/:id/:key", secretCheck(req, res, next), (req, res) => {
+router.get("/customers/:id", secretCheck, (req, res) => {
     customerController.getOneCustomer(req, res);
 })
 
-router.post("/customers/create/:key", secretCheck(req, res, next), (req, res) => {
+router.post("/customers/create", secretCheck, (req, res) => {
     customerController.createCustomer(req, res);
 })
 
-router.get("/transactions/:key", secretCheck(req, res, next), (req, res)=> {
+router.get("/transactions", secretCheck, (req, res)=> {
     transactionController.getTransactions(req, res);
 })
 
-router.get("/transactions/:id/:key", secretCheck(req, res, next), (req, res) => {
+router.get("/transactions/:id", secretCheck, (req, res) => {
     transactionController.getUserTransaction(req, res);
 })
 
-router.post("/transactions/create/:key", secretCheck(req, res, next), (req, res) => {
+router.post("/transactions/create", secretCheck, (req, res) => {
     transactionController.createTransaction(req, res).then( async transaction => {
         if(transaction){
             if(transaction.dataValues.type === "deposit") {
@@ -41,7 +41,7 @@ router.post("/transactions/create/:key", secretCheck(req, res, next), (req, res)
     })
 })
 
-router.post("/transactions/sell/:key", secretCheck(req, res, next), (req, res) => {
+router.post("/transactions/sell", secretCheck, (req, res) => {
     transactionController.sellFund(req, res).then( async transaction => {
         if(transaction){
             console.log(transaction, "sell -----")
