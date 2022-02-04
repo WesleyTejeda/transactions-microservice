@@ -50,6 +50,7 @@ export const sellFund = async (req, res) => {
     //calculate amount
     let ids = req.body.id;
     let transactionsToReturn = [];
+    let quantity = req.body.quantity;
     for(let i = 0; i < ids.length; i++){
         let transactionToSell = await Transaction.findOne({
             where: {
@@ -62,12 +63,13 @@ export const sellFund = async (req, res) => {
         if(transactionToSell.dataValues.quantityAvailable <= 0){
             continue
         }
-        if(req.body.quantity <= transactionToSell.dataValues.quantity){
-            amount = req.body.quantity * transactionToSell.dataValues.pricePerUnit;
-            newQuantity = transactionToSell.dataValues.quantityAvailable - req.body.quantity;
+        if(quantity <= transactionToSell.dataValues.quantity){
+            amount = quantity * transactionToSell.dataValues.pricePerUnit;
+            newQuantity = transactionToSell.dataValues.quantityAvailable - quantity;
         } else {
             amount = transactionToSell.dataValues.quantity * transactionToSell.dataValues.pricePerUnit;
             newQuantity = 0;
+            quantity -= transactionToSell.dataValues.quantity
         }
         console.log(newQuantity,"NEW------------ PASSED")
     
