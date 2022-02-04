@@ -48,60 +48,62 @@ export const sellFund = async (req, res) => {
     //Expect a transaction id to sell
     //expect quantity to sell, if not all
     //calculate amount
-    let transactionToSell = await Transaction.findOne({
-        where: {
-            id: req.body.id
+    let ids = req.body.id;
+    let transactionsToReturn = [];
+    for(let i = 0; i < ids.length; i++){
+        let transactionToSell = await Transaction.findOne({
+            where: {
+                id: ids[i]
+            }
+        });
+        console.log(transactionToSell.dataValues, "to sell ----------")
+        let amount = 0;
+        let newQuantity = 0;
+        if(transactionToSell.dataValues.quantityAvailable <= 0){
+            continue
         }
-    });
-    console.log(transactionToSell.dataValues, "to sell ----------")
-    if(req.body.quantity > transactionToSell.dataValues.quantity){
-        res.json({error: `You have ${transactionToSell.dataValues.quantity} shares available to sell which is less than quantity provided. Please enter correct quantity`});
-    }
-    let amount = 0;
-    let newQuantity = 0;
-    if(transactionToSell.dataValues.quantityAvailable <= 0){
-        res.json({error: "You already sold all shares of "+transactionToSell.itemDescription})
-    }
-    if(req.body.quantity <= transactionToSell.dataValues.quantity){
-        amount = req.body.quantity * transactionToSell.dataValues.pricePerUnit;
-        newQuantity = transactionToSell.dataValues.quantityAvailable - req.body.quantity;
-    } else {
-        amount = transactionToSell.dataValues.quantity * transactionToSell.dataValues.pricePerUnit;
-        newQuantity = 0;
-    }
-    console.log(newQuantity,"NEW------------ PASSED")
-
-    if(newQuantity > 0){
-        await Transaction.update({
-            quantityAvailable: newQuantity
-        }, {
-            where: {
-                id: transactionToSell.dataValues.id
-            }
+        if(req.body.quantity <= transactionToSell.dataValues.quantity){
+            amount = req.body.quantity * transactionToSell.dataValues.pricePerUnit;
+            newQuantity = transactionToSell.dataValues.quantityAvailable - req.body.quantity;
+        } else {
+            amount = transactionToSell.dataValues.quantity * transactionToSell.dataValues.pricePerUnit;
+            newQuantity = 0;
+        }
+        console.log(newQuantity,"NEW------------ PASSED")
+    
+        if(newQuantity > 0){
+            await Transaction.update({
+                quantityAvailable: newQuantity
+            }, {
+                where: {
+                    id: transactionToSell.dataValues.id
+                }
+            })
+        } else if(newQuantity === 0) {
+            await Transaction.update({
+                sold: true,
+                quantityAvailable: 0
+            }, {
+                where: {
+                    id: transactionToSell.dataValues.id
+                }
+            })
+        }
+        console.log("------------ PASSED")
+    
+        let transactionToReturn = await Transaction.create({
+            CustomerId: transactionToSell.dataValues.CustomerId,
+            type: "sell",
+            itemDescription: `Selling of ${transactionToSell.dataValues.itemDescription}`,
+            amount: amount,
+            quantity: req.body.quantity,
+            fund_id: transactionToSell.dataValues.fund_id,
+            pricePerUnit: transactionToSell.dataValues.pricePerUnit,
+            sold: true
         })
-    } else if(newQuantity === 0) {
-        await Transaction.update({
-            sold: true,
-            quantityAvailable: 0
-        }, {
-            where: {
-                id: transactionToSell.dataValues.id
-            }
-        })
+        transactionsToReturn.push(transactionToReturn)
+        console.log("------------ PASSED")
     }
-    console.log("------------ PASSED")
 
-    let transactionToReturn = await Transaction.create({
-        CustomerId: transactionToSell.dataValues.CustomerId,
-        type: "sell",
-        itemDescription: `Selling of ${transactionToSell.dataValues.itemDescription}`,
-        amount: amount,
-        quantity: req.body.quantity,
-        fund_id: transactionToSell.dataValues.fund_id,
-        pricePerUnit: transactionToSell.dataValues.pricePerUnit,
-        sold: true
-    })
-    console.log("------------ PASSED")
-
-    return (transactionToReturn)
+    return (transactionsToReturn)
 }
