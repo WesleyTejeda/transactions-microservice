@@ -1,10 +1,12 @@
 import { customerController, walletController, transactionController } from "../controller/index.js";
 import express from "express";
+import dotenv from "dotenv"
+dotenv.config();
 
 const router = express.Router();
 
 const secretCheck = (req, res, next) => {
-    req.query.secretKey === "pmY6WrA2oO7Vfdd4zpfz97C9aWMLELqv" ? next() : res.json({error: "Access denied to gateway."})
+    req.query.secretKey === process.env.secretKey ? next() : res.json({error: "Access denied to gateway."})
 }
 
 router.get("/customers", secretCheck, (req, res)=> {
