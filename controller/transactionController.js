@@ -48,14 +48,17 @@ export const sellFund = async (req, res) => {
     //Expect a transaction id to sell
     //expect quantity to sell, if not all
     //calculate amount
+    let message = {note: ""};
     let transactionToSell = await Transaction.findOne({
         where: {
             id: req.body.id
         }
     });
     console.log(transactionToSell.dataValues, "to sell ----------")
-    if(req.body.quantity > transactionToSell.dataValues.quantity){
-        res.json({error: `You have ${transactionToSell.dataValues.quantity} shares available to sell which is less than quantity provided. Please enter correct quantity`});
+    if(req.body.quantity > transactionToSell.dataValues.quantityAvailable){
+        req.body.quantity = transactionToSell.dataValues.quantityAvailable;
+        message.note = `You have ${transactionToSell.dataValues.quantityAvailable} shares available to sell which is less than the quantity provided for this fund. We've adjusted the quantity to sell the remaining shares.`
+        // res.json({error: `You have ${transactionToSell.dataValues.quantityAvailable} shares available to sell which is less than quantity provided. Please enter correct quantity`});
     }
     let amount = 0;
     let newQuantity = 0;
@@ -102,6 +105,8 @@ export const sellFund = async (req, res) => {
         sold: true
     })
     console.log("------------ PASSED")
-
+    if(message.note){
+        transactionToReturn.note = message.note
+    }
     return (transactionToReturn)
 }
